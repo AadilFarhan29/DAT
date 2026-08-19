@@ -1,0 +1,1978 @@
+/* ===================== Tokens ===================== */
+:root{
+  /* Palette — warm off-white base, true-red accent, slate secondary */
+  --bg:#FAFAF9;
+  --bg-alt:#EFEEEA;        /* alternating section background */
+  --bg-2:#EFEEEA;          /* legacy alias → alt background */
+  --surface:#FFFFFF;
+  --surface-warm:#EFEEEA;  /* subtle hover fill */
+  --ink:#00041F;           /* sampled exactly from the logo file */
+  --ink-2:#4A5568;         /* softer body ink → slate */
+  --secondary:#4A5568;     /* cool slate grey */
+  --muted:#8A8F9C;
+  --line:#E4E1DA;
+  --line-strong:#D3CFC6;
+
+  --accent:#C1272D;        /* true red — primary (small/sparing use only) */
+  --accent-deep:#9E1F24;
+  --accent-soft:#F3D6D7;
+  --accent-2:#4A5568;      /* slate */
+  --accent-2-soft:#DFE2E7;
+  --accent-3:#C1272D;      /* highlight = accent red */
+  --accent-3-soft:#F3D6D7;
+
+  --shadow-sm:0 1px 2px rgba(0,4,31,0.04), 0 2px 6px rgba(0,4,31,0.05);
+  --shadow-md:0 4px 10px rgba(0,4,31,0.05), 0 14px 28px rgba(0,4,31,0.07);
+  --shadow-lg:0 10px 20px rgba(0,4,31,0.06), 0 28px 56px rgba(0,4,31,0.10);
+  --shadow-accent:0 10px 30px rgba(193,39,45,0.18);
+
+  /* Easings */
+  --ease-smooth:cubic-bezier(.22,1,.36,1);
+  --ease-emphasis:cubic-bezier(.16,1,.3,1);
+  --ease-out:cubic-bezier(.25,.46,.45,.94);
+  --ease-snap:cubic-bezier(.34,1.56,.64,1);
+  --ease-panel:cubic-bezier(.4,0,.2,1);  /* Leadership slide-apart — even accel/decel */
+
+  /* Layout */
+  --maxw:1240px;
+  --gutter:clamp(20px,5vw,48px);
+  --radius-sm:10px;
+  --radius-md:18px;
+  --radius-lg:28px;
+  --radius-xl:36px;
+}
+
+/* ===================== Reset ===================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+ul{list-style:none}
+::selection{background:var(--accent);color:#fff}
+
+/* Grain overlay — subtle neutral texture */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:1;
+  opacity:0.16;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.13 0 0 0 0 0.16 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>");
+}
+
+/* ===================== Typography ===================== */
+.display{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  line-height:1.05;
+}
+.eyebrow{
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.section-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-style:italic;
+  font-weight:400;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* ===================== Layout ===================== */
+.container{
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+  position:relative;
+  z-index:2;
+}
+section{
+  padding-block:clamp(72px,10vw,128px);
+  position:relative;
+  z-index:2;
+}
+/* Alternating section rhythm — off-white break from pure white */
+section.bg-alt{background:var(--bg-alt)}
+/* Subpages (leadership.html) have no hero to reserve space under the fixed
+   nav, so their first section takes extra top padding to clear it. */
+section.subpage-first{padding-top:clamp(140px,15vw,196px)}
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:32px;
+  margin-bottom:clamp(40px,5vw,64px);
+  flex-wrap:wrap;
+}
+.section-head .head-left{max-width:640px}
+.section-head .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
+.section-head .eyebrow::before{
+  content:'';width:24px;height:1px;background:var(--accent);
+}
+.section-head h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(32px,4.4vw,52px);
+  line-height:1.05;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+}
+.section-head h2 em{
+  font-style:italic;
+  color:var(--accent);
+  font-weight:400;
+}
+.section-head .head-right{
+  max-width:380px;
+  color:var(--ink-2);
+  font-size:15px;
+  line-height:1.7;
+}
+
+/* ===================== Buttons ===================== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 24px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:0.01em;
+  transition:transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth), background 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth);
+  will-change:transform;
+}
+.btn svg{width:16px;height:16px;transition:transform 0.3s var(--ease-smooth)}
+.btn-primary{
+  background:var(--accent);
+  color:#fff;
+  box-shadow:var(--shadow-accent);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(193,39,45,0.28)}
+.btn-primary:hover svg{transform:translateX(3px)}
+.btn-ghost{
+  background:transparent;
+  color:var(--ink);
+  border:1px solid var(--line-strong);
+}
+.btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn-ghost:hover svg{transform:translateX(3px)}
+.btn-dark{background:var(--accent-2);color:#fff}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(74,85,104,0.28)}
+
+/* ===================== Nav ===================== */
+header.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 0;
+  transition:background 0.4s var(--ease-smooth), box-shadow 0.4s var(--ease-smooth), padding 0.4s var(--ease-smooth);
+}
+header.nav.scrolled{
+  background:rgba(250,250,249,0.85);
+  backdrop-filter:blur(14px) saturate(1.2);
+  -webkit-backdrop-filter:blur(14px) saturate(1.2);
+  box-shadow:0 1px 0 var(--line);
+  padding:12px 0;
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.logo{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:20px;
+  letter-spacing:-0.01em;
+}
+.logo img{height:50px;width:auto;display:block}
+
+.nav-links{
+  display:flex;align-items:center;gap:4px;
+  background:rgba(250,250,249,0.6);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px;
+  backdrop-filter:blur(8px);
+}
+.nav-links a{
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--ink-2);
+  transition:background 0.25s var(--ease-smooth), color 0.25s var(--ease-smooth);
+}
+.nav-links a:hover{background:var(--ink);color:#fff}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.nav-toggle{
+  display:none;
+  width:42px;height:42px;
+  border-radius:12px;
+  border:1px solid var(--line-strong);
+  place-items:center;
+}
+@media (max-width:980px){
+  .nav-links{display:none}
+  .nav-toggle{display:grid}
+  .nav-cta .btn{display:none}
+}
+
+/* ===================== Hero ===================== */
+.hero{
+  min-height:100vh;
+  padding-top:140px;
+  padding-bottom:60px;
+  display:flex;align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero-photo{
+  position:absolute;inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+.hero-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+}
+.hero-photo::after{
+  content:'';
+  position:absolute;inset:0;
+  /* Diagonal fade: guards the top-left text zone, reveals the building
+     arches/glass on the right and bottom of the frame. */
+  background:linear-gradient(135deg,
+    rgba(250,250,249,0.97) 0%,
+    rgba(250,250,249,0.85) 35%,
+    rgba(250,250,249,0.35) 60%,
+    rgba(250,250,249,0.05) 85%);
+}
+@media (max-width:680px){
+  /* Mobile text spans the full width, so lean the diagonal more vertical
+     to keep the taller stack readable while still opening up the bottom. */
+  .hero-photo::after{
+    background:linear-gradient(160deg,
+      rgba(250,250,249,0.98) 0%,
+      rgba(250,250,249,0.9) 42%,
+      rgba(250,250,249,0.6) 70%,
+      rgba(250,250,249,0.15) 100%);
+  }
+}
+.hero-bg{
+  position:absolute;inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+/* Line-art category icons scattered in the negative space */
+.hero-icon{
+  position:absolute;
+  color:var(--secondary);
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 1.1s var(--ease-emphasis), transform 1.1s var(--ease-emphasis);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+.hero-icon svg{display:block;width:100%;height:100%;stroke-width:1.5}
+.hero.loaded .hero-icon{opacity:0.08;transform:translateY(0)}
+.i-kitchen{width:118px;height:118px;top:15%;right:9%;transform:translateY(30px) rotate(-8deg)}
+.hero.loaded .i-kitchen{transform:translateY(0) rotate(-8deg)}
+.i-home{width:82px;height:82px;top:12%;right:29%}
+.i-car{width:134px;height:134px;bottom:24%;right:11%;transform:translateY(30px) rotate(6deg)}
+.hero.loaded .i-car{transform:translateY(0) rotate(6deg)}
+.i-electronics{width:92px;height:92px;bottom:15%;right:30%}
+.i-office{width:72px;height:72px;top:27%;left:5%;transform:translateY(30px) rotate(-6deg)}
+.hero.loaded .i-office{transform:translateY(0) rotate(-6deg)}
+.i-toys{width:64px;height:64px;bottom:22%;left:7%;transform:translateY(30px) rotate(-12deg)}
+.hero.loaded .i-toys{transform:translateY(0) rotate(-12deg)}
+@media (max-width:680px){
+  .i-home,.i-electronics,.i-office,.i-toys{display:none}
+}
+
+.hero-content{
+  position:relative;
+  z-index:3;
+  max-width:880px;
+}
+.hero-badge{
+  display:inline-flex;
+  align-items:center;gap:10px;
+  padding:8px 16px 8px 8px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--ink-2);
+  box-shadow:var(--shadow-sm);
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+  transition-delay:calc(var(--i,0) * 90ms);
+  margin-bottom:32px;
+}
+.hero.loaded .hero-badge{opacity:1;transform:translateY(0)}
+.hero-badge .dot{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--accent-2);
+  display:grid;place-items:center;
+  color:#fff;font-size:11px;
+}
+
+.hero-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(56px,10vw,128px);
+  line-height:0.92;
+  letter-spacing:-0.04em;
+  color:var(--ink);
+  margin-bottom:28px;
+}
+.hero-title .line{display:block;overflow:hidden}
+.hero-title .word{
+  display:inline-block;
+  transform:translateY(110%);
+  transition:transform 1.1s var(--ease-emphasis);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+.hero.loaded .hero-title .word{transform:translateY(0)}
+.hero-title .accent{
+  font-style:italic;
+  color:var(--accent);
+  font-weight:400;
+}
+
+.hero-tagline{
+  font-size:clamp(18px,2vw,22px);
+  color:var(--ink-2);
+  font-weight:500;
+  margin-bottom:20px;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+  transition-delay:calc(var(--i,0) * 90ms);
+  display:flex;align-items:center;gap:14px;
+}
+.hero.loaded .hero-tagline{opacity:1;transform:translateY(0)}
+.hero-tagline::before{
+  content:'';width:40px;height:2px;background:var(--accent);
+}
+
+.hero-desc{
+  font-size:17px;
+  line-height:1.65;
+  color:var(--ink-2);
+  max-width:580px;
+  margin-bottom:40px;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+.hero.loaded .hero-desc{opacity:1;transform:translateY(0)}
+
+.hero-cta{
+  display:flex;gap:14px;flex-wrap:wrap;
+  margin-bottom:64px;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+.hero.loaded .hero-cta{opacity:1;transform:translateY(0)}
+
+.hero-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  max-width:880px;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+.hero.loaded .hero-stats{opacity:1;transform:translateY(0)}
+.hero-stat{
+  background:var(--surface);
+  padding:24px 22px;
+  transition:background 0.3s var(--ease-smooth);
+}
+.hero-stat:hover{background:var(--surface-warm)}
+.hero-stat .num{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:500;
+  font-size:clamp(28px,3.2vw,40px);
+  line-height:1;
+  color:var(--ink);
+  letter-spacing:-0.02em;
+  display:flex;align-items:baseline;gap:2px;
+}
+.hero-stat .num .suffix{color:var(--accent);font-size:0.7em}
+.hero-stat .label{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:8px;
+  letter-spacing:0.04em;
+}
+@media (max-width:680px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Decorative catalog strip */
+.hero-strip{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  border-top:1px solid var(--line);
+  background:rgba(250,250,249,0.6);
+  backdrop-filter:blur(6px);
+  padding:14px 0;
+  overflow:hidden;
+  z-index:2;
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+.hero-strip-track{
+  display:flex;gap:48px;
+  white-space:nowrap;
+  animation:scroll 40s linear infinite;
+}
+.hero-strip-track span{display:inline-flex;align-items:center;gap:14px}
+.hero-strip-track span::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);
+}
+@keyframes scroll{
+  to{transform:translateX(-50%)}
+}
+
+/* ===================== Trusted By (logo marquee) ===================== */
+.trusted{
+  padding-block:clamp(48px,6vw,72px);
+  background:var(--bg);
+  border-block:1px solid var(--line);
+  overflow:hidden;
+}
+.trusted-head{text-align:center;margin-bottom:36px}
+.trusted-head .eyebrow{display:inline-flex;align-items:center;gap:10px}
+.trusted-head .eyebrow::before,
+.trusted-head .eyebrow::after{
+  content:'';width:24px;height:1px;background:var(--accent);
+}
+.marquee{
+  /* Full-bleed breakout — same edge-to-edge intent as .hero-strip, but
+     via width/margin since this section (unlike .hero) has no
+     position:relative ancestor to anchor an absolute strip to. */
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+}
+.marquee-track{
+  display:inline-flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  width:max-content;
+  animation:marquee-scroll 30s linear infinite;
+  will-change:transform;
+}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes marquee-scroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-25%)}
+}
+.logo-item{
+  flex:none;
+  display:flex;
+  align-items:center;
+  margin-right:56px;
+}
+.logo-item img{
+  width:auto;
+  display:block;
+  filter:grayscale(0);
+  opacity:1;
+  transition:opacity 0.35s var(--ease-snap), filter 0.35s var(--ease-snap);
+}
+.logo-item:hover img{
+  filter:grayscale(1);
+  opacity:0.6;
+}
+/* Individual heights balance each logo's visual weight — narrow marks
+   (Al Madina, Mark & Save) are boosted; the wide Lulu mark is reined in. */
+.logo-ajman-coop{height:70px}
+.logo-lulu-retail{height:62px}
+.logo-al-madina{height:78px}
+.logo-safari-mall{height:70px}
+.logo-mark-and-save{height:78px}
+.logo-nesto{height:70px}
+
+/* ===================== About ===================== */
+.about{
+  background:var(--surface);
+  border-block:1px solid var(--line);
+}
+.about-grid{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:clamp(40px,6vw,80px);
+  /* Stretch (not start) so the collage column's height is structurally tied
+     to the text column's full height — including all pillar cards — rather
+     than being sized independently. If a 4th pillar is added, the text
+     column grows and the collage grows with it, no manual resize needed. */
+  align-items:stretch;
+}
+@media (max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-text h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:500;
+  font-size:clamp(32px,4.4vw,52px);
+  line-height:1.05;
+  letter-spacing:-0.02em;
+  margin-bottom:24px;
+}
+.about-text h2 em{font-style:italic;color:var(--accent);font-weight:400}
+.about-text .lede{
+  font-size:19px;
+  line-height:1.55;
+  color:var(--ink-2);
+  margin-bottom:20px;
+  font-weight:500;
+}
+.about-text p{
+  color:var(--ink-2);
+  margin-bottom:18px;
+  line-height:1.7;
+}
+.about-pillars{
+  display:grid;
+  gap:14px;
+  margin-top:36px;
+}
+.pillar{
+  display:flex;gap:16px;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  background:var(--surface);
+  transition:transform 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+}
+.pillar:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--shadow-md)}
+.pillar-icon{
+  width:42px;height:42px;flex-shrink:0;
+  background:var(--accent-soft);
+  color:var(--accent);
+  border-radius:12px;
+  display:grid;place-items:center;
+}
+.pillar h4{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:17px;
+  margin-bottom:4px;
+}
+.pillar p{font-size:14px;color:var(--ink-2);margin:0;line-height:1.5}
+
+/* Landscape photo collage — one full-width 16:9 tile on top (office
+   exterior), a row of three equal 4:3 tiles below. Landscape ratios
+   throughout so real landscape photography (the office exterior shot in
+   particular) crops naturally instead of being forced into a tall,
+   sliced-looking portrait box. Sits on a bg-alt section, so tiles take a
+   border rather than a shadow, per the section-rhythm convention. */
+.about-collage{
+  position:sticky;
+  top:100px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  /* Grid stretch (above) gives this column a definite height equal to the
+     text column's — this is what lets the flex-grow below actually have
+     leftover space to distribute, instead of collapsing to content size. */
+}
+@media (max-width:900px){
+  .about-collage{position:relative;top:auto;max-width:500px;margin-inline:auto}
+}
+.collage-tile{
+  position:relative;
+  margin:0;
+  overflow:hidden;
+  border-radius:var(--radius-md);
+  border:1px solid var(--line);
+  background:var(--bg-2);
+}
+/* aspect-ratio supplies the flex-basis (via the item's width, which is
+   fixed by the column), so it acts as a MINIMUM height — flex-grow can
+   only add height beyond it, flex-shrink:0 means it never goes below.
+   Hero gets 2x the row's grow weight, preserving roughly the same
+   hero:row visual weighting the original fixed 16:9-top/4:3-row
+   proportions had (~2.3:1), instead of splitting new space evenly. */
+.collage-hero{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:var(--radius-lg);
+  flex:2 0 auto;
+}
+.collage-row{
+  display:flex;
+  gap:12px;
+  flex:1 0 auto;
+}
+.collage-row .collage-tile{
+  flex:1 1 0;
+  aspect-ratio:4/3;
+}
+@media (max-width:560px){
+  /* Three 4:3 tiles side by side get too narrow to read on phones —
+     stack them instead. */
+  .collage-row{flex-direction:column}
+  .collage-row .collage-tile{flex:1 1 auto}
+}
+.collage-tile img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  transition:transform 0.6s var(--ease-smooth);
+}
+/* The office-exterior shot is a tall portrait source cropped into a wide
+   16:9 tile — anchor on the peak/roofline rather than the geometric center,
+   same convention as .hero-photo img's object-position. */
+.collage-hero img{object-position:center top}
+.collage-tile:hover img{transform:scale(1.03)}
+
+/* "Sample" badge — flags these four photos as temporary stand-ins for
+   management review, not final photography. Pure CSS overlay so it's a
+   one-line delete (just the <span>) once real photos are approved. */
+.sample-badge{
+  position:absolute;
+  top:10px;right:10px;
+  z-index:1;
+  padding:4px 11px;
+  background:rgba(0,4,31,0.55);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  border-radius:999px;
+  color:#fff;
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+.collage-hero .sample-badge{top:14px;right:14px;padding:5px 13px;font-size:11px}
+
+/* ===================== Brands ===================== */
+#brands{padding-block:clamp(86px,12vw,154px)}
+.brand-grid{
+  display:grid;
+  /* 6 columns at desktop so 12 cards resolve to 2 even rows (5 columns
+     left a sparse trailing row of 2). The narrower breakpoints already
+     divide 12 evenly (4→3 rows, 3→4 rows, 2→6 rows), so only this one
+     needed to change. */
+  grid-template-columns:repeat(6,1fr);
+  gap:20px;
+}
+@media (max-width:900px){.brand-grid{grid-template-columns:repeat(4,1fr)}}
+/* 4 columns here too (not 3) — with 3, item 4 of the current directory
+   sequence spills into row 2 alongside two unrelated cards instead of
+   leading a clean row with items 1-3. 4 still divides 12 evenly (3 rows),
+   so this doesn't reopen the sparse-row problem the 6-column desktop fix
+   above was solving. Re-check this if the sequence or card count changes. */
+@media (max-width:560px){.brand-grid{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:380px){.brand-grid{grid-template-columns:repeat(2,1fr)}}
+.brand-card{
+  position:relative;
+  z-index:1;
+  background:var(--surface);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-sm);
+  border-radius:var(--radius-md);
+  padding:20px;
+  aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth);
+}
+/* Square cards narrow fast once columns increase and viewport shrinks —
+   ease padding down so wide wordmarks (VOL, D'TOY) still get real width
+   to work with instead of shrinking far below the 68px target. */
+@media (max-width:900px){.brand-card{padding:16px}}
+@media (max-width:560px){.brand-card{padding:13px}}
+@media (max-width:380px){.brand-card{padding:10px}}
+/* pop-open is the tap/click equivalent of :hover (see JS) — lift the card
+   and raise it above neighbours so its callout isn't painted over. */
+.brand-card:hover,
+.brand-card.pop-open{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--accent);
+  z-index:5;
+}
+/* object-fit:contain (not height+width:auto) is deliberate: with square
+   cards, wide wordmarks (VOL is 2.44:1) would exceed the card's width
+   before reaching 96px tall, and a plain max-width cap on a fixed-height
+   image would squash it instead of scaling both dimensions together.
+   contain scales the whole logo down proportionally so it always clears
+   the padding on every edge, native ratio intact. */
+.brand-card img{
+  width:100%;
+  height:68px;
+  object-fit:contain;
+  display:block;
+}
+
+/* Hover/tap callout — a speech-bubble tag floating above the card.
+   Purely informational: pointer-events stays off so it never steals
+   hover or blocks a future card link. Shown via :hover (pointer) and
+   .pop-open (tap — set in JS, mirroring the leadership rows' dual trigger). */
+.brand-pop{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 12px);
+  z-index:6;
+  width:max-content;
+  max-width:min(220px,72vw);
+  padding:10px 14px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow-md);
+  text-align:center;
+  opacity:0;
+  pointer-events:none;
+  transform:translateX(-50%) translateY(6px) scale(0.94);
+  transform-origin:bottom center;
+  transition:opacity 0.2s var(--ease-out), transform 0.2s var(--ease-snap);
+}
+/* Speech-bubble arrow: a border-coloured triangle (::before) with a
+   1px-inset surface-coloured triangle (::after) laid over it, so the
+   pointer keeps the bubble's hairline border. */
+.brand-pop::before,
+.brand-pop::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  width:0;height:0;
+  border-style:solid;
+}
+.brand-pop::before{
+  top:100%;
+  margin-left:-8px;
+  border-width:8px 8px 0 8px;
+  border-color:var(--line) transparent transparent transparent;
+}
+.brand-pop::after{
+  top:calc(100% - 1px);
+  margin-left:-7px;
+  border-width:7px 7px 0 7px;
+  border-color:var(--surface) transparent transparent transparent;
+}
+/* Top-row cards flip the callout below (JS adds .pop-below) so it doesn't
+   collide with the section heading / section above. Arrow points up. */
+.brand-card.pop-below .brand-pop{
+  bottom:auto;
+  top:calc(100% + 12px);
+  transform-origin:top center;
+}
+.brand-card.pop-below .brand-pop::before{
+  top:auto;
+  bottom:100%;
+  border-width:0 8px 8px 8px;
+  border-color:transparent transparent var(--line) transparent;
+}
+.brand-card.pop-below .brand-pop::after{
+  top:auto;
+  bottom:calc(100% - 1px);
+  border-width:0 7px 7px 7px;
+  border-color:transparent transparent var(--surface) transparent;
+}
+.brand-card:hover .brand-pop,
+.brand-card.pop-open .brand-pop{
+  opacity:1;
+  transform:translateX(-50%) translateY(0) scale(1);
+}
+.brand-pop .bp-name{
+  display:block;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:-0.01em;
+  color:var(--accent);
+}
+.brand-pop .bp-cat{
+  display:block;
+  margin-top:2px;
+  font-size:12px;
+  line-height:1.4;
+  color:var(--ink-2);
+}
+
+/* ===================== How We Operate ===================== */
+.how{
+  background:var(--bg-alt);
+  border-block:1px solid var(--line);
+}
+/* This section carries a full descriptive paragraph in head-right rather
+   than the usual short supporting line, so widen that column. */
+.how .section-head .head-right{max-width:500px}
+
+/* 3-step flow diagram: brands → import → shelf, joined by accent arrows.
+   Cards sit on the bg-alt section, so they take a border (not a shadow),
+   per the section-rhythm convention. */
+.flow{
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  flex-wrap:nowrap;
+}
+.flow-step{
+  flex:1 1 0;
+  max-width:300px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:34px 26px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:18px;
+}
+.flow-icon{
+  width:64px;height:64px;
+  border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--accent-soft);
+  color:var(--accent);
+  flex-shrink:0;
+}
+.flow-icon svg{width:28px;height:28px}
+.flow-label{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:17px;
+  letter-spacing:-0.01em;
+  line-height:1.2;
+  color:var(--ink);
+}
+.flow-arrow{
+  flex:0 0 auto;
+  align-self:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 10px;
+  color:var(--accent);
+}
+.flow-arrow svg{width:44px;height:24px}
+@media (max-width:720px){
+  .flow{flex-direction:column;align-items:center}
+  .flow-step{width:100%;max-width:360px}
+  .flow-arrow{padding:12px 0;transform:rotate(90deg)}
+}
+
+/* ===================== Markets ===================== */
+.markets-grid{
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:clamp(40px,5vw,72px);
+  align-items:center;
+}
+@media (max-width:900px){.markets-grid{grid-template-columns:1fr}}
+.map-card{
+  aspect-ratio:1000/1022.97;
+  width:100%;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+}
+.map-card svg{width:100%;height:100%;display:block}
+.map-legend{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+  margin-top:16px;
+}
+.map-legend-item{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  color:var(--ink-2);
+}
+.map-legend-dot{width:10px;height:10px;border-radius:50%;flex:none}
+.map-legend-dot.hq{background:var(--accent)}
+.map-legend-dot.active{background:var(--accent-soft);box-shadow:inset 0 0 0 1px rgba(193,39,45,0.35)}
+.map-credit{
+  margin-top:8px;
+  font-size:11px;
+  color:var(--muted);
+}
+.markets-list{display:grid;gap:14px}
+.market-row{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:18px;
+  padding:18px 22px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  transition:transform 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+}
+.market-row:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow-md)}
+.market-row .flag{
+  width:44px;height:44px;border-radius:10px;
+  background:var(--accent-soft);color:var(--accent);
+  display:grid;place-items:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;
+}
+.market-row.hq .flag{background:var(--accent-2);color:#fff}
+.market-row .info h4{
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;
+  letter-spacing:-0.01em;
+}
+.market-row .info p{font-size:13px;color:var(--muted)}
+.market-row .status{
+  font-size:11px;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--accent-2);
+  display:flex;align-items:center;gap:6px;
+}
+.market-row .status::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:currentColor;
+  box-shadow:0 0 0 4px rgba(74,85,104,0.15);
+}
+.market-row.hq .status{color:var(--accent)}
+.market-row.hq .status::before{box-shadow:0 0 0 4px rgba(193,39,45,0.18)}
+
+/* ===================== Trust ===================== */
+.trust{background:var(--ink);color:#FFFFFF;position:relative;overflow:hidden}
+.trust::before{
+  content:'';position:absolute;
+  top:-200px;right:-200px;
+  width:500px;height:500px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(193,39,45,0.16),transparent 70%);
+  pointer-events:none;
+}
+.trust .section-head h2{color:#fff}
+.trust .section-head h2 em{color:var(--accent-3)}
+.trust .section-head .head-right{color:rgba(255,255,255,0.7)}
+.trust .eyebrow{color:var(--accent-3)}
+.trust .eyebrow::before{background:var(--accent-3)}
+.trust .section-num{color:rgba(255,255,255,0.4)}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+}
+@media (max-width:560px){.stats-grid{grid-template-columns:1fr}}
+.stat-block{
+  background:var(--ink);
+  padding:32px 28px;
+  position:relative;
+}
+.stat-block .stat-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:500;
+  font-size:clamp(40px,5vw,64px);
+  line-height:1;
+  color:#fff;
+  letter-spacing:-0.03em;
+  display:flex;align-items:baseline;
+}
+.stat-block .stat-num .suffix{color:var(--accent-3);margin-left:4px}
+.stat-block .stat-label{
+  margin-top:12px;
+  font-size:13px;
+  color:rgba(255,255,255,0.6);
+  line-height:1.5;
+}
+.stat-block .stat-tick{
+  position:absolute;top:24px;right:24px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent-3);
+}
+
+/* ===================== Leadership teaser (index.html) ===================== */
+/* Compact entry point to leadership.html — the full founder flip cards live
+   on that page. Sits on a plain --bg section, so it takes a soft shadow
+   rather than a border, per the section-rhythm convention. */
+.leader-teaser{
+  max-width:640px;
+  margin-inline:auto;
+  text-align:center;
+  background:var(--surface);
+  box-shadow:var(--shadow-md);
+  border-radius:var(--radius-lg);
+  padding:clamp(40px,6vw,64px) clamp(24px,5vw,56px);
+}
+.leader-teaser .eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:18px;
+}
+.leader-teaser .eyebrow::before,
+.leader-teaser .eyebrow::after{
+  content:'';width:24px;height:1px;background:var(--accent);
+}
+.leader-teaser h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(30px,4vw,46px);
+  line-height:1.05;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  margin-bottom:14px;
+}
+.leader-teaser h2 em{font-style:italic;color:var(--accent);font-weight:400}
+.leader-teaser p{
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.6;
+  margin-bottom:28px;
+}
+
+/* ===================== Leadership (slide-apart profiles) ===================== */
+/* Two stacked rows. At rest each portrait sits centred in its row with the
+   role label tucked directly above it; on activation the portrait slides left
+   while the detail panel fades and slides right out of that same centre point,
+   so the pair reads as one object splitting rather than a panel arriving next
+   to a static photo. Dual trigger — :hover for pointers, a .leader-open class
+   for touch/keyboard — mirrors the brand callouts and the old flip cards.
+   Replaced the 3D flip-card treatment entirely. */
+.leaders-grid{
+  display:flex;
+  flex-direction:column;
+  gap:clamp(48px,6vw,76px);
+}
+.leader-row{
+  /* Scroll-reveal wrapper, deliberately a separate element from the portrait
+     below: this one owns a translateY, the portrait owns a translateX, and
+     keeping them apart stops the two from overwriting each other's transform. */
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+  transition-delay:calc(var(--i,0) * 140ms);
+}
+.leader-row.revealed{opacity:1;transform:translateY(0)}
+
+.leader-stage{
+  --portrait-w:380px;
+  --panel-w:581px;
+  --pair-gap:50px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+/* Portrait column — the role label sits 9px above the photo so the two read
+   as one attached unit, and they travel together as one. cursor:pointer sits
+   here rather than on the stage because the portrait is the actual click
+   target (see script.js); the stage is only the hover region. */
+.leader-portrait{
+  position:relative;
+  z-index:1;
+  flex:0 0 auto;
+  width:min(100%,var(--portrait-w));
+  cursor:pointer;
+}
+.leader-portrait:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:6px;
+  border-radius:var(--radius-lg);
+}
+.lp-role{
+  margin-bottom:9px;
+  text-align:center;
+  font-size:12px;font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--accent);
+}
+.leader-portrait .founder-photo{
+  display:block;
+  width:100%;
+  aspect-ratio:260/320;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-md);
+  background:var(--bg-2);
+}
+/* Panel — box styling only here; each breakpoint below owns its own
+   positioning and reveal mechanism. */
+.leader-panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-md);
+  padding:28px 30px;
+  text-align:left;
+}
+.leader-panel .f-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;font-size:26px;
+  letter-spacing:-0.01em;line-height:1.15;
+  margin-bottom:14px;
+}
+.leader-panel .f-bio{
+  font-size:14px;color:var(--ink-2);line-height:1.65;
+}
+.leader-panel .f-quote{
+  margin-top:18px;
+  padding:12px 0 2px 16px;
+  border-top:1px solid var(--line);
+  border-left:2px solid var(--accent);
+  font-family:'Inter',sans-serif;font-style:italic;
+  font-size:13px;line-height:1.5;color:var(--ink);
+}
+
+/* --- Wide: the slide-apart itself ------------------------------------- */
+/* Paired with the max-width:1119px block below — the two are mutually
+   exclusive so neither has to undo the other's positioning. The open
+   composition is 380 + 50 + 581 = 1011px; with the gutter capped at 48px on
+   each side (viewport >= 960px), the container first clears that at
+   viewport = 1011 + 2*48 = 1107px. 1120px adds a small buffer above that
+   exact floor — below it the portrait would overhang the stage's left edge,
+   so the sideways split stops being viable and the narrow layout takes over
+   instead. This threshold moves whenever --portrait-w, --pair-gap, or
+   --panel-w changes — recompute it (container = viewport - 2*gutter must be
+   >= their sum) rather than leaving it at a stale value. */
+@media (min-width:1120px){
+  .leader-stage{
+    /* The stage is exactly as wide as the open composition, so "centred at
+       rest" and "centred when open" describe the same box. Each half's travel
+       is then just the distance from that shared centre to its own slot,
+       derived below rather than hand-tuned — change a width or the gap above
+       and the two still meet with exactly --pair-gap between them. */
+    --portrait-shift:calc((var(--panel-w) + var(--pair-gap)) / 2);
+    --panel-shift:calc((var(--portrait-w) + var(--pair-gap)) / 2);
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    width:min(100%,calc(var(--portrait-w) + var(--pair-gap) + var(--panel-w)));
+    margin-inline:auto;
+  }
+  .leader-portrait{
+    transition:transform 450ms var(--ease-panel);
+  }
+  .leader-panel{
+    position:absolute;
+    z-index:0;          /* behind the portrait, so it reads as emerging from under it */
+    top:50%;left:50%;
+    width:var(--panel-w);
+    transform:translate(-50%,-50%);
+    /* Hidden by opacity rather than display/visibility so the bio and quote
+       stay in the accessibility tree even while the row is closed. */
+    opacity:0;
+    pointer-events:none;
+    transition:transform 450ms var(--ease-panel), opacity 350ms var(--ease-panel);
+  }
+  .leader-stage:hover .leader-portrait,
+  .leader-row.leader-open .leader-portrait{
+    transform:translateX(calc(-1 * var(--portrait-shift)));
+  }
+  .leader-stage:hover .leader-panel,
+  .leader-row.leader-open .leader-panel{
+    transform:translate(calc(-50% + var(--panel-shift)),-50%);
+    opacity:1;
+    pointer-events:auto;
+  }
+}
+
+/* --- Narrow: no room to split sideways, so the panel opens underneath --- */
+@media (max-width:1119px){
+  .leader-portrait{width:min(100%,420px)}
+  .leader-panel{
+    display:none;
+    width:min(100%,520px);
+    margin:22px auto 0;
+  }
+  .leader-row.leader-open .leader-panel{
+    display:block;
+    animation:leader-panel-in 350ms var(--ease-panel) both;
+  }
+}
+@keyframes leader-panel-in{
+  from{opacity:0;transform:translateY(-10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ===================== Brand detail pages (flyzo.html) ===================== */
+/* Shared by every future brand page — keep new brand pages on these classes
+   rather than adding per-brand variants. */
+/* Bottom padding is pulled well below the default section rhythm so the
+   intro → feature strip → range sequence reads as one continuous flow
+   rather than three separately-padded blocks. */
+.brand-hero{
+  position:relative;
+  overflow:hidden;
+  padding-bottom:clamp(30px,4vw,44px);
+}
+/* Softly-rotated accent shape behind the intro, top-right. Decorative only:
+   aria-hidden in markup, pointer-events off, and it sits below .container
+   (which is already position:relative; z-index:2).
+   Deliberately understated — the logo now sits flush right in that corner
+   of the header, so this is pulled further off-canvas and down to 0.045
+   opacity to stay background texture rather than compete with it. */
+.brand-hero-deco{
+  position:absolute;
+  top:-190px;
+  right:-170px;
+  width:min(440px,48vw);
+  aspect-ratio:1/1;
+  background:var(--accent);
+  opacity:0.045;
+  border-radius:96px;
+  transform:rotate(24deg);
+  pointer-events:none;
+  z-index:0;
+}
+.breadcrumb{
+  display:flex;align-items:center;flex-wrap:wrap;gap:9px;
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:30px;
+}
+.breadcrumb a{color:var(--ink-2);transition:color 0.25s var(--ease-smooth)}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb .sep{color:var(--line-strong)}
+.breadcrumb .current{color:var(--ink);font-weight:600}
+
+/* Hero intro: text block left, circular logo badge right. */
+.brand-intro{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(28px,5vw,64px);
+}
+/* Visual order is tagline (as eyebrow) → name → body, while DOM order keeps
+   the <h1> first for AT/SEO — the flex column + order:-1 does the swap. */
+.brand-intro-text{
+  max-width:560px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.brand-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(42px,6vw,64px);
+  line-height:1.02;
+  letter-spacing:-0.03em;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+/* Rendered above the name (order:-1) as the page's eyebrow — same accent
+   small-caps + 24px dash convention as .section-head .eyebrow. */
+.brand-tagline{
+  order:-1;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:'Inter',sans-serif;
+  font-size:12px;font-weight:600;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:16px;
+}
+.brand-tagline::before{content:'';width:24px;height:1px;background:var(--accent);flex:none}
+/* Scoped to a class, not `.brand-intro p` — an element selector there would
+   out-specify .brand-tagline (0,1,1 vs 0,1,0) and silently override its
+   accent colour with --ink-2. Keep body copy on its own class. */
+.brand-desc{
+  font-size:17px;
+  line-height:1.75;
+  color:var(--ink-2);
+  max-width:54ch;
+}
+
+/* Plain logo image — no container chrome at all (no border, border-radius,
+   background fill, shadow, or padding). The wrapper exists only to carry the
+   .reveal animation hook; it must stay padding/margin-free so the logo sits
+   flush against the right edge of the header's content column.
+   Sizing is height-pinned with width:auto, so each brand's logo keeps its own
+   aspect ratio (sources run 0.89:1 for FunQB up to 3.68:1 for TEQ).
+   object-fit:contain + max-width:100% stop the reset's img{max-width:100%}
+   from squashing a wide wordmark if the row ever gets tight. */
+.brand-logo{
+  flex:0 0 auto;
+  margin:0;
+  padding:0;
+  line-height:0;
+}
+.brand-logo img{
+  height:110px;
+  width:auto;
+  max-width:100%;
+  object-fit:contain;
+  object-position:right center;
+  display:block;
+}
+/* At 110px a 3.68:1 wordmark is ~405px wide, which starves the text column
+   before the stacking breakpoint — step the height down in between. */
+@media (max-width:1000px){
+  .brand-logo img{height:92px}
+}
+@media (max-width:760px){
+  /* column-reverse puts the logo above the text visually while leaving DOM
+     order text-first, so reading/AT order stays name → category → body. */
+  .brand-intro{
+    flex-direction:column-reverse;
+    align-items:center;
+    text-align:center;
+    gap:26px;
+  }
+  .brand-intro-text{max-width:none;align-items:center}
+  /* Symmetric dashes once the eyebrow is centered */
+  .brand-tagline::after{content:'';width:24px;height:1px;background:var(--accent);flex:none}
+  .brand-logo img{height:80px;object-position:center}
+  .breadcrumb{justify-content:center}
+}
+
+/* Feature strip — a thin band bridging the intro and the range, giving the
+   middle of the page something to say. Plain <div>, not <section>, so it
+   doesn't inherit the tall default section padding. */
+.brand-strip{
+  border-block:1px solid var(--line);
+  background:var(--surface);
+  padding-block:17px;
+}
+.brand-strip .strip-inner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px 22px;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-align:center;
+}
+.brand-strip .strip-dot{color:var(--accent)}
+
+/* Matching pull-in on the range side of the strip */
+.brand-range{padding-top:clamp(34px,4.5vw,52px)}
+
+/* Product range — deliberately asymmetric (one tall card beside two stacked)
+   rather than a uniform e-commerce grid. */
+.range-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:20px;
+  counter-reset:range;
+}
+.range-card.r-lg{grid-column:1;grid-row:1/3}
+.range-card.r-a{grid-column:2;grid-row:1}
+.range-card.r-b{grid-column:2;grid-row:2}
+@media (max-width:760px){
+  .range-grid{grid-template-columns:1fr}
+  .range-card.r-lg,.range-card.r-a,.range-card.r-b{grid-column:auto;grid-row:auto}
+}
+.range-card{
+  display:flex;
+  flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:18px;
+  transition:transform 0.28s var(--ease-smooth), box-shadow 0.28s var(--ease-smooth), border-color 0.28s var(--ease-smooth);
+}
+.range-card:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow-lg);
+  border-color:var(--accent);
+}
+/* Editorial index — 01 / 02 / 03 in the site's italic-numeral voice
+   (.section-num), counted in DOM order (large card first). Warms to accent
+   on hover so the whole card acknowledges the pointer, not just the border. */
+.range-card::before{
+  counter-increment:range;
+  content:"0" counter(range);
+  font-family:'Space Grotesk',sans-serif;
+  font-style:italic;
+  font-size:13px;
+  letter-spacing:0.1em;
+  color:var(--muted);
+  margin-bottom:12px;
+  transition:color 0.28s var(--ease-smooth);
+}
+.range-card:hover::before{color:var(--accent)}
+/* Pending-slot area — a static "Coming Soon" card, not the site's old
+   dashed-hatch-shimmer "awaiting content" treatment (retired; see git history
+   if that texture is ever needed elsewhere). Deliberately calm: solid
+   --bg-alt fill, a thin solid border for definition against the page
+   background, no animation at all — reads as intentional rather than
+   "under construction." Distinct from a filled slot (.has-photo, which drops
+   the border entirely) so it can never be mistaken for a real product. Scale
+   stays small enough to grow within the card's 18px padding on hover, so it
+   never spills past the card edge. */
+.range-media{
+  position:relative;
+  overflow:hidden;
+  flex:1 1 auto;
+  min-height:190px;
+  margin-bottom:16px;
+  display:grid;place-items:center;text-align:center;
+  padding:16px;
+  background-color:var(--bg-alt);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  transition:transform 0.32s var(--ease-smooth), border-color 0.32s var(--ease-smooth);
+}
+.range-media .rm-inner{display:block}
+.range-media .rm-icon{
+  display:block;
+  width:26px;height:26px;
+  margin:0 auto 10px;
+  color:var(--ink);
+}
+.range-media .rm-title{
+  display:block;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:-0.005em;
+  color:var(--ink);
+  margin-bottom:4px;
+}
+.range-media .rm-sub{
+  display:block;
+  font-family:'Inter',sans-serif;
+  font-weight:500;
+  font-size:12px;
+  color:var(--secondary);
+}
+.range-card.r-lg .range-media{min-height:392px}
+.range-card:hover .range-media{transform:scale(1.025);border-color:var(--accent)}
+/* Real product photo — replaces the pending hatch/shimmer entirely for this
+   slot. Shares .range-media's box (min-height, radius, flex, hover scale)
+   so a photo tile sizes identically to a still-pending one; only the fill
+   treatment changes. object-fit:contain (not cover) because these are
+   clean white-background product shots — cropping into the product would
+   be wrong here, unlike a lifestyle photo. The neutral --bg-alt fill behind
+   the contained image is what gives it edge definition against the card's
+   white background, since the shot's own background is also white. */
+.range-media.has-photo{
+  background-color:var(--bg-alt);
+  background-image:none;
+  border:none;
+}
+.range-media.has-photo::after{content:none}
+.range-media.has-photo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  transition:transform 0.6s var(--ease-smooth);
+}
+/* Photo tiles swap the box-scale hover for an inner image zoom — the frame
+   stays put, the product breathes inside it (overflow:hidden clips). */
+.range-card:hover .range-media.has-photo{transform:none}
+.range-card:hover .range-media.has-photo img{transform:scale(1.045)}
+.range-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;font-size:17px;
+  letter-spacing:-0.01em;
+  line-height:1.25;
+  color:var(--ink);
+  margin-bottom:6px;
+  transition:color 0.28s var(--ease-smooth);
+}
+.range-card:hover .range-name{color:var(--accent)}
+.range-desc{font-size:14px;color:var(--ink-2);line-height:1.55}
+
+/* Closing CTA — last section on a brand page, nothing after it but the
+   footer. An ink panel echoing index's Trust section (same corner radial-red
+   glow device, see .trust::before), so brand pages close on the same "dark
+   chapter" note the main page already has — a family resemblance, not a
+   separate dark theme. */
+.brand-cta{text-align:center}
+.brand-cta .container{
+  width:calc(100% - 2*var(--gutter));
+  max-width:calc(var(--maxw) - 2*var(--gutter));
+  background:var(--ink);
+  border-radius:var(--radius-lg);
+  padding:clamp(52px,7vw,88px) clamp(24px,5vw,64px);
+  overflow:hidden;
+}
+.brand-cta .container::before{
+  content:'';
+  position:absolute;
+  top:-190px;right:-190px;
+  width:480px;height:480px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(193,39,45,0.20),transparent 70%);
+  pointer-events:none;
+}
+/* Superseded by the panel treatment above. The span is still present in all
+   twelve generated pages' markup — retire it here rather than re-templating
+   every file for a decorative change. */
+.brand-cta-deco{display:none}
+.brand-cta h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(26px,3.4vw,40px);
+  letter-spacing:-0.02em;
+  line-height:1.1;
+  color:#fff;
+  margin-bottom:28px;
+}
+
+/* ---------- "Coming soon" state (pending brand pages) --------------------
+   Shared treatment for brands with no confirmed products or description.
+   It REPLACES the .brand-range section wholesale rather than dressing up the
+   dashed [PHOTO PENDING] cards — three empty placeholders read as a broken
+   page, one deliberate panel reads as a brand that simply hasn't launched.
+   Nothing here fabricates a category, a product, or a date.
+
+   To convert another pending page it's three markup swaps, no new CSS:
+     1. .brand-tagline  → .brand-status   (the category is genuinely unknown)
+     2. .brand-desc     → delete outright (no invented body copy)
+     3. the .brand-range <section> → the .brand-soon <section>
+   Everything below is brand-agnostic. The ONLY per-page value in the whole
+   block is the single letter inside .soon-monogram. */
+
+/* Status pill — occupies the slot the category eyebrow would, using the same
+   order:-1 hoist above the <h1>, so the intro keeps its shape with nothing
+   invented in it. */
+.brand-status{
+  order:-1;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:16px;
+  padding:7px 15px 7px 12px;
+  background:var(--surface);
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  font-family:'Inter',sans-serif;
+  font-size:11px;font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--secondary);
+  white-space:nowrap;
+}
+.brand-status .st-dot{
+  width:7px;height:7px;flex:none;
+  border-radius:50%;
+  background:var(--accent);
+  animation:status-pulse 2.8s var(--ease-smooth) infinite;
+}
+@keyframes status-pulse{
+  0%{box-shadow:0 0 0 0 rgba(193,39,45,0.34)}
+  70%{box-shadow:0 0 0 8px rgba(193,39,45,0)}
+  100%{box-shadow:0 0 0 0 rgba(193,39,45,0)}
+}
+
+/* Same tightened top rhythm as .brand-range, so intro → panel still reads as
+   one continuous flow rather than two separately-padded blocks. */
+.brand-soon{padding-top:clamp(34px,4.5vw,52px)}
+.soon-panel{
+  position:relative;
+  overflow:hidden;
+  padding:clamp(46px,7vw,88px) clamp(24px,5vw,64px);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-sm);
+  text-align:center;
+}
+/* Dot matrix, masked to fall away under the copy — texture around the edges,
+   clean surface where the text sits. Where mask-image isn't supported the
+   grid just covers the panel evenly, which still reads as deliberate rather
+   than broken, so no @supports fallback is needed. */
+.soon-panel::before{
+  content:'';
+  position:absolute;inset:0;
+  pointer-events:none;
+  background-image:radial-gradient(var(--line-strong) 1px,transparent 1px);
+  background-size:24px 24px;
+  opacity:0.55;
+  -webkit-mask-image:radial-gradient(ellipse 60% 56% at 50% 50%,transparent 40%,#000 100%);
+  mask-image:radial-gradient(ellipse 60% 56% at 50% 50%,transparent 40%,#000 100%);
+}
+/* Oversized brand initial, ghosted back into the panel. Purely typographic —
+   no image asset, so a brand with no photography still gets a graphic. */
+.soon-monogram{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-53%);
+  z-index:0;
+  pointer-events:none;
+  user-select:none;-webkit-user-select:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(190px,30vw,330px);
+  line-height:1;
+  letter-spacing:-0.05em;
+  color:var(--ink);
+  opacity:0.035;
+}
+.soon-inner{position:relative;z-index:1}
+/* Centered variant of the site's eyebrow convention — symmetric dashes,
+   since this one is never left-aligned. */
+.soon-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+  font-size:12px;font-weight:700;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.soon-eyebrow::before,.soon-eyebrow::after{
+  content:'';width:26px;height:1px;flex:none;
+  background:var(--accent);opacity:0.5;
+}
+.soon-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(28px,3.8vw,44px);
+  line-height:1.12;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+.soon-title em{font-style:italic;font-weight:400;color:var(--accent)}
+.soon-note{
+  max-width:54ch;
+  margin:0 auto 32px;
+  font-size:16px;
+  line-height:1.75;
+  color:var(--ink-2);
+}
+.soon-actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+}
+/* Confirmed-facts line — signals an owned, live page rather than an
+   abandoned one. Only facts already asserted site-wide. */
+.soon-meta{
+  margin-top:36px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+  font-size:12px;font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+@media (max-width:560px){
+  .soon-eyebrow::before,.soon-eyebrow::after{width:16px}
+  .soon-actions .btn{width:100%;justify-content:center}
+}
+
+/* ---------- theme-flight (flyzo.html only: <body class="theme-flight">) ----
+   Flight-telemetry decoration layer for FlyZo. Every other brand page keeps
+   the neutral template; scope any drone/flight-specific visual under this
+   class (or inside the .flight-path SVG, which only flyzo.html carries). */
+
+/* Hero flight path — a dotted trajectory arcing up-right to a small quad
+   glyph. The dashes march along the path (dashoffset loop) so the route
+   reads as live telemetry, not a static squiggle. Sits at z-index:1 —
+   above the ring deco (0), below .container content (2), so the dotted
+   line passes behind the brand logo for a bit of depth. */
+.flight-path{
+  position:absolute;
+  top:30px;
+  right:-50px;
+  width:min(74%,900px);
+  height:auto;
+  z-index:1;
+  pointer-events:none;
+}
+.flight-path .fp-line{
+  fill:none;
+  stroke:rgba(0,4,31,0.20);
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-dasharray:1 11;
+  animation:fp-march 26s linear infinite;
+}
+/* -240 is a multiple of the 12px dash period, so the loop is seamless */
+@keyframes fp-march{to{stroke-dashoffset:-240}}
+.flight-path .fp-way{fill:none;stroke:rgba(0,4,31,0.16);stroke-width:1.4;stroke-linecap:round}
+.flight-path .fp-way .accent{stroke:rgba(193,39,45,0.4)}
+.flight-path .fp-drone{
+  stroke:rgba(0,4,31,0.45);
+  stroke-width:1.6;
+  stroke-linecap:round;
+  transform:translate(1060px,82px);
+  animation:fp-bob 5.5s var(--ease-smooth) infinite;
+}
+.flight-path .fp-drone .rotor{fill:rgba(193,39,45,0.5);stroke:none}
+.flight-path .fp-drone .hub{fill:rgba(0,4,31,0.5);stroke:none}
+@keyframes fp-bob{
+  0%,100%{transform:translate(1060px,86px)}
+  50%{transform:translate(1060px,78px)}
+}
+@media (max-width:760px){.flight-path{display:none}}
+
+/* Hero deco → radar rings. The generic rotated square becomes two thin
+   concentric circles with a red dot riding the outer ring. The dot is a
+   fixed ::after at the ring's top edge; because circles are rotation-
+   invariant, spinning the whole stack orbits the dot while the rings
+   appear perfectly still. */
+.theme-flight .brand-hero-deco{
+  top:-130px;
+  right:-110px;
+  width:min(430px,46vw);
+  background:transparent;
+  border:1px solid rgba(0,4,31,0.10);
+  border-radius:50%;
+  opacity:1;
+  transform:none;
+  animation:orbit-spin 22s linear infinite;
+}
+.theme-flight .brand-hero-deco::before{
+  content:'';
+  position:absolute;
+  inset:17%;
+  border:1px solid rgba(0,4,31,0.07);
+  border-radius:50%;
+}
+.theme-flight .brand-hero-deco::after{
+  content:'';
+  position:absolute;
+  top:-4px;left:50%;
+  width:8px;height:8px;margin-left:-4px;
+  border-radius:50%;
+  background:var(--accent);
+  opacity:0.5;
+}
+@keyframes orbit-spin{to{transform:rotate(360deg)}}
+
+/* The radar-scope pending-box HUD (grid texture + conic sweep) that used to
+   live here has been retired: FlyZo's one remaining pending slot now takes
+   the same neutral "Coming Soon" card every other partial brand page uses,
+   rather than a FlyZo-exclusive variant. flight-path, the hero-deco radar
+   rings, and the drone bob above are unaffected — only the pending-*product*
+   styling was theme-flight-scoped, and that scoping is gone. */
+
+/* ===================== Contact / Footer ===================== */
+.contact{
+  background:var(--surface);
+  border-top:1px solid var(--line);
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:clamp(40px,6vw,80px);
+  align-items:start;
+}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+.contact-left h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:500;
+  font-size:clamp(36px,5vw,64px);
+  line-height:1.02;
+  letter-spacing:-0.03em;
+  margin-bottom:24px;
+}
+.contact-left h2 em{font-style:italic;color:var(--accent);font-weight:400}
+.contact-left .lede{
+  font-size:17px;color:var(--ink-2);line-height:1.6;
+  max-width:480px;margin-bottom:36px;
+}
+.contact-info{display:grid;gap:18px}
+.contact-item{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.contact-item:last-child{border-bottom:none}
+.contact-item .ico{
+  width:42px;height:42px;flex-shrink:0;
+  background:var(--accent-soft);color:var(--accent);
+  border-radius:12px;
+  display:grid;place-items:center;
+}
+.contact-item .ico svg{width:18px;height:18px}
+.contact-item .text{font-size:14px;color:var(--ink-2)}
+.contact-item .text strong{
+  display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;
+  font-size:15px;color:var(--ink);margin-bottom:2px;
+}
+
+.contact-form{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:clamp(24px,3vw,36px);
+}
+.form-row{display:grid;gap:16px;margin-bottom:16px}
+.form-row.two{grid-template-columns:1fr 1fr}
+@media (max-width:520px){.form-row.two{grid-template-columns:1fr}}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-field label{
+  font-size:11px;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--ink-2);
+}
+.form-field input,
+.form-field textarea,
+.form-field select{
+  font:inherit;
+  padding:13px 14px;
+  border:1px solid var(--line-strong);
+  border-radius:10px;
+  background:var(--surface);
+  color:var(--ink);
+  transition:border-color 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth);
+  font-size:14.5px;
+}
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(193,39,45,0.15);
+}
+.form-field textarea{min-height:120px;resize:vertical;font-family:inherit}
+.form-submit{
+  width:100%;
+  margin-top:8px;
+  justify-content:center;
+}
+.form-note{
+  margin-top:14px;
+  font-size:12px;color:var(--muted);text-align:center;
+}
+
+/* Footer bottom */
+.footer-bottom{
+  background:var(--ink);
+  color:rgba(255,255,255,0.7);
+  padding:32px 0;
+  font-size:13px;
+}
+.footer-bottom .container{
+  display:flex;justify-content:space-between;align-items:center;gap:24px;
+  flex-wrap:wrap;
+}
+.footer-bottom a{color:rgba(255,255,255,0.7);transition:color 0.25s var(--ease-smooth)}
+.footer-bottom a:hover{color:var(--accent-3)}
+.footer-bottom .links{display:flex;gap:24px;flex-wrap:wrap}
+.footer-logo img{height:48px;width:auto;display:block}
+
+/* ===================== Reveal ===================== */
+.reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity 0.7s var(--ease-out), transform 0.85s var(--ease-snap);
+  will-change:opacity,transform;
+}
+.reveal.revealed{opacity:1;transform:translateY(0)}
+.reveal[data-delay="1"]{transition-delay:80ms}
+.reveal[data-delay="2"]{transition-delay:160ms}
+.reveal[data-delay="3"]{transition-delay:240ms}
+.reveal[data-delay="4"]{transition-delay:320ms}
+
+/* Staggered children — cascade in one after another when the group enters view */
+.stagger-item{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 0.6s var(--ease-out), transform 0.8s var(--ease-snap);
+  will-change:opacity,transform;
+}
+.stagger-item.revealed{opacity:1;transform:translateY(0)}
+
+/* Toast */
+.toast{
+  position:fixed;
+  bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(120%);
+  background:var(--ink);
+  color:#fff;
+  padding:14px 22px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:500;
+  box-shadow:var(--shadow-lg);
+  z-index:1000;
+  transition:transform 0.5s var(--ease-smooth);
+  display:flex;align-items:center;gap:10px;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-3)}
+
+/* ===================== Reduced motion ===================== */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.001ms !important;
+    transition-duration:0.001ms !important;
+    animation-iteration-count:1 !important;
+  }
+  .hero-badge,.hero-title .word,.hero-tagline,.hero-desc,.hero-cta,.hero-stats{
+    opacity:1 !important;transform:none !important;
+  }
+  .hero-icon{opacity:0.08 !important;transform:none !important}
+  .reveal,.stagger-item{opacity:1 !important;transform:none !important}
+  .hero-strip-track,.marquee-track{animation:none}
+  .hero-bg{transform:none !important}
+  /* Leadership rows: the panel still appears and disappears, it just stops
+     travelling to get there. The global duration override above already
+     collapses the slide and fade, so the end-state transforms are left
+     intact on purpose — zeroing them instead would drop the panel back on
+     top of the portrait it is supposed to sit beside. */
+  .leader-row{opacity:1 !important;transform:none !important}
+  .leader-portrait,.leader-panel{transition:none !important}
+  .leader-panel{animation:none !important}
+  /* Coming-soon status pill: drop the pulse ring entirely and let the solid
+     accent dot carry the "live status" signal on its own. */
+  .brand-status .st-dot{animation:none !important;box-shadow:none !important}
+  /* Brand callouts: opacity-only fade, no scale/slide */
+  .brand-pop,
+  .brand-card:hover .brand-pop,
+  .brand-card.pop-open .brand-pop{
+    transform:translateX(-50%) !important;
+    transition:opacity 0.18s ease !important;
+  }
+  /* About mosaic: no hover zoom on the tiles */
+  .collage-tile:hover img{transform:none !important}
+  /* Brand page range cards: no lift or placeholder scale-up. The pending
+     "Coming Soon" card has no animation to begin with — nothing else needed
+     here for it. */
+  .range-card:hover{transform:none !important}
+  .range-card:hover .range-media{transform:none !important}
+  /* FlyZo flight theme: still the marching dashes, drone bob, and ring orbit */
+  .flight-path .fp-line,
+  .flight-path .fp-drone,
+  .theme-flight .brand-hero-deco{animation:none !important}
+  /* Photo-tile inner zoom */
+  .range-card:hover .range-media.has-photo img{transform:none !important}
+}
