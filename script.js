@@ -55,11 +55,33 @@ document.querySelectorAll('[data-leader]').forEach(el => leaderObserver.observe(
 /* ===================== Leadership slide-apart rows ===================== */
 /* Pointer devices open on :hover via CSS. We also toggle a .leader-open class
    so the rows work on touch — and, since the bio and quote are otherwise
-   reachable by hover alone, on keyboard too (Enter/Space on the portrait). */
-document.querySelectorAll('.leader-row').forEach(row => {
+   reachable by hover alone, on keyboard too (Enter/Space on the portrait).
+   The split only exists at >=1120px; narrower, styles.css shows the panel
+   permanently, so the portrait stops being a toggle and its button
+   semantics are removed to match (and restored if the window widens). */
+const leaderSplit = window.matchMedia('(min-width:1120px)');
+const leaderRows = document.querySelectorAll('.leader-row');
+function syncLeaderMode() {
+  leaderRows.forEach(row => {
+    const trigger = row.querySelector('.leader-portrait');
+    if (!trigger) return;
+    if (leaderSplit.matches) {
+      trigger.setAttribute('role', 'button');
+      trigger.tabIndex = 0;
+      trigger.setAttribute('aria-expanded', row.classList.contains('leader-open') ? 'true' : 'false');
+    } else {
+      row.classList.remove('leader-open');
+      trigger.removeAttribute('role');
+      trigger.removeAttribute('tabindex');
+      trigger.removeAttribute('aria-expanded');
+    }
+  });
+}
+leaderRows.forEach(row => {
   const trigger = row.querySelector('.leader-portrait');
   if (!trigger) return;
   function toggle() {
+    if (!leaderSplit.matches) return;
     const open = row.classList.toggle('leader-open');
     trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
@@ -67,12 +89,14 @@ document.querySelectorAll('.leader-row').forEach(row => {
      open panel to read it doesn't collapse the thing you're reading. */
   trigger.addEventListener('click', toggle);
   trigger.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (leaderSplit.matches && (e.key === 'Enter' || e.key === ' ')) {
       e.preventDefault();   // stop Space from scrolling the page
       toggle();
     }
   });
 });
+syncLeaderMode();
+leaderSplit.addEventListener('change', syncLeaderMode);
 
 /* ===================== Brand hover/tap callouts ===================== */
 /* Pointer devices reveal the callout on :hover via CSS. For touch, tapping
@@ -129,6 +153,224 @@ const staggerObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
 document.querySelectorAll('[data-stagger]').forEach(el => staggerObserver.observe(el));
+
+/* ===================== Pegboard range (brand pages) ===================== */
+/* Play-type filters, paging by whole rows, packs that drop onto their pegs as
+   they scroll into view and swing when hovered, a shared <dialog> viewer and
+   a Lucky dip — all layered over the static <li> markup, which stays the
+   single source of truth (number, caption, aisle, image path).
+   Guarded: only pages with a pegboard range have #pegWall. */
+const pegWall = document.getElementById('pegWall');
+if (pegWall) {
+  const pegSection = pegWall.closest('.peg-range');
+  const brandName = (pegSection && pegSection.dataset.brand) || '';
+  const pegItems = Array.from(pegWall.querySelectorAll('.peg-item'));
+  const pegChips = Array.from(document.querySelectorAll('.peg-chip'));
+  const pegMore = document.getElementById('pegMore');
+  const pegCount = document.getElementById('pegCount');
+  const pegDip = document.getElementById('pegDip');
+  const aisleName = {};
+  pegChips.forEach(c => { aisleName[c.dataset.filter] = c.querySelector('.peg-chip-label').textContent; });
+
+  let aisle = 'all';
+  let matches = pegItems;   // packs in the current aisle, in wall order
+  let shown = 0;
+
+  const pegColumns = () => getComputedStyle(pegWall).gridTemplateColumns.split(' ').length;
+  // Whole rows only: 4 rows on wider walls, 6 once cards are 2–3 across
+  const pegPage = () => { const c = pegColumns(); return c * (c >= 4 ? 4 : 6); };
+
+  // Packs drop onto their pegs as they enter view, staggered within each batch
+  const hangObserver = reduceMotion ? null : new IntersectionObserver((entries) => {
+    entries
+      .filter(e => e.isIntersecting)
+      .map(e => e.target)
+      .sort((a, b) => pegItems.indexOf(a) - pegItems.indexOf(b))
+      .forEach((el, i) => {
+        el.style.setProperty('--hang-delay', (Math.min(i, 10) * 55) + 'ms');
+        el.classList.add('is-hung');
+        hangObserver.unobserve(el);
+      });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  function hang(el) {
+    el.classList.remove('is-hung', 'is-settled');
+    if (hangObserver) hangObserver.observe(el);
+    else el.classList.add('is-hung', 'is-settled');
+  }
+
+  function renderWall(count, rehang) {
+    shown = Math.min(count, matches.length);
+    const visible = new Set(matches.slice(0, shown));
+    pegItems.forEach(el => {
+      const wasHidden = el.hidden;
+      el.hidden = !visible.has(el);
+      if (!el.hidden && (wasHidden || rehang)) hang(el);
+    });
+    pegCount.innerHTML = `Showing <b>${shown}</b> of <b>${matches.length}</b> packs`;
+    pegMore.hidden = shown >= matches.length;
+  }
+
+  pegWall.classList.add('is-ready');
+  renderWall(pegPage(), true);
+
+  pegChips.forEach(chip => chip.addEventListener('click', () => {
+    if (chip.dataset.filter === aisle) return;
+    aisle = chip.dataset.filter;
+    pegChips.forEach(c => {
+      const on = c === chip;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    matches = aisle === 'all' ? pegItems : pegItems.filter(el => el.dataset.cat === aisle);
+    renderWall(pegPage(), true);
+  }));
+
+  pegMore.addEventListener('click', () => renderWall(shown + pegPage(), false));
+
+  // Column count changes across breakpoints — top up to a full last row
+  let pegRAF;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(pegRAF);
+    pegRAF = requestAnimationFrame(() => {
+      const c = pegColumns();
+      const full = Math.min(Math.ceil(shown / c) * c, matches.length);
+      if (full !== shown) renderWall(full, false);
+    });
+  });
+
+  // Hover swing. A class removed on animationend (not a :hover animation),
+  // so moving off mid-swing lets the pack come to rest instead of snapping.
+  pegWall.addEventListener('animationend', (e) => {
+    if (e.animationName === 'peg-hang') e.target.parentElement.classList.add('is-settled');
+    if (e.animationName === 'peg-swing') e.target.classList.remove('is-swinging');
+  });
+  if (!reduceMotion) {
+    pegWall.addEventListener('pointerover', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const card = e.target.closest('.peg-card');
+      if (!card || card.contains(e.relatedTarget)) return;
+      if (card.parentElement.classList.contains('is-settled')) card.classList.add('is-swinging');
+    });
+  }
+
+  /* ---------- Viewer ---------- */
+  const viewer = document.getElementById('pegViewer');
+  if (viewer && typeof viewer.showModal === 'function') {
+    const vCard = viewer.querySelector('.pv-card');
+    const vImg = document.getElementById('pvImg');
+    const vStage = document.getElementById('pvStage');
+    const vCat = document.getElementById('pvCat');
+    const vNo = document.getElementById('pvNo');
+    const vName = document.getElementById('pvName');
+    const vPos = document.getElementById('pvPos');
+    const vEnquire = document.getElementById('pvEnquire');
+    let current = 0;    // index into matches
+    let openedBy = null;
+    let loadToken = 0;
+
+    const packAt = (i) => {
+      const el = matches[i];
+      const thumb = el.querySelector('img').getAttribute('src');
+      return {
+        no: el.querySelector('.peg-no').textContent,
+        name: el.querySelector('.peg-name').textContent,
+        aisle: aisleName[el.dataset.cat] || '',
+        thumb,
+        full: thumb.replace('/thumb/', '/full/'),
+      };
+    };
+    const wrap = (i) => (i + matches.length) % matches.length;
+
+    function showPack(i, dir) {
+      current = wrap(i);
+      const p = packAt(current);
+      vCat.textContent = p.aisle;
+      vNo.textContent = p.no;
+      vName.textContent = p.name;
+      vPos.textContent = `${current + 1} / ${matches.length}`;
+      const ask = `Hello, I'd like to know more about stocking ${brandName ? brandName + ' ' : ''}pack No. ${p.no} (${p.name}).`;
+      vEnquire.href = 'index.html?enquiry=' + encodeURIComponent(ask) + '#contact';
+      // The wall thumbnail is already cached — show it at once, then swap in
+      // the full-size shot when it arrives (if the viewer is still on it).
+      vImg.alt = p.name;
+      vImg.src = p.thumb;
+      const token = ++loadToken;
+      const full = new Image();
+      full.onload = () => { if (token === loadToken) vImg.src = p.full; };
+      full.src = p.full;
+      [current + 1, current - 1].forEach(n => { new Image().src = packAt(wrap(n)).full; });
+      if (!reduceMotion) {
+        vCard.classList.remove('swing-in', 'swap-next', 'swap-prev');
+        void vCard.offsetWidth;   // restart the animation
+        vCard.classList.add(dir > 0 ? 'swap-next' : dir < 0 ? 'swap-prev' : 'swing-in');
+      }
+    }
+
+    function openViewer(i, source) {
+      openedBy = source;
+      showPack(i, 0);
+      document.documentElement.classList.add('pv-lock');
+      viewer.showModal();
+    }
+
+    viewer.addEventListener('close', () => {
+      document.documentElement.classList.remove('pv-lock');
+      // Opened from the wall: land on the pack you finished on (if it's
+      // shown), so paging through the viewer moves your place on the wall.
+      // Opened by Lucky dip: straight back to the dice.
+      const el = matches[current];
+      const target = openedBy !== pegDip && el && !el.hidden ? el.querySelector('.peg-card') : openedBy;
+      if (!target) return;
+      const r = target.getBoundingClientRect();
+      if (r.top < 90 || r.bottom > window.innerHeight) {
+        target.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+      target.focus({ preventScroll: true });
+    });
+
+    pegWall.addEventListener('click', (e) => {
+      const card = e.target.closest('.peg-card');
+      if (card) openViewer(matches.indexOf(card.parentElement), card);
+    });
+    document.getElementById('pvPrev').addEventListener('click', () => showPack(current - 1, -1));
+    document.getElementById('pvNext').addEventListener('click', () => showPack(current + 1, 1));
+    document.getElementById('pvClose').addEventListener('click', () => viewer.close());
+    // A click on the ::backdrop targets the <dialog> itself
+    viewer.addEventListener('click', (e) => { if (e.target === viewer) viewer.close(); });
+    viewer.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); showPack(current + 1, 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); showPack(current - 1, -1); }
+    });
+    // Swipe between packs on the stage (touch-action:pan-y keeps vertical scroll)
+    let swipeX = null, swipeY = 0;
+    vStage.addEventListener('pointerdown', (e) => { swipeX = e.clientX; swipeY = e.clientY; });
+    vStage.addEventListener('pointercancel', () => { swipeX = null; });
+    vStage.addEventListener('pointerup', (e) => {
+      if (swipeX === null) return;
+      const dx = e.clientX - swipeX, dy = e.clientY - swipeY;
+      swipeX = null;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        const dir = dx < 0 ? 1 : -1;
+        showPack(current + dir, dir);
+      }
+    });
+
+    // Lucky dip — a random pack from the current aisle (the dice gets a beat
+    // to roll before the viewer opens over it)
+    if (pegDip) {
+      pegDip.addEventListener('click', () => {
+        if (!matches.length) return;
+        const pick = Math.floor(Math.random() * matches.length);
+        if (reduceMotion) { openViewer(pick, pegDip); return; }
+        pegDip.classList.remove('is-rolling');
+        void pegDip.offsetWidth;
+        pegDip.classList.add('is-rolling');
+        setTimeout(() => openViewer(pick, pegDip), 380);
+      });
+    }
+  }
+}
 
 /* ===================== Hero parallax ===================== */
 /* The decorative hero shapes drift slower than the scroll, so the hero
@@ -229,6 +471,55 @@ if (form) {
     showToast(`Thank you, ${name.split(' ')[0]} — our ${typeLabel} team will be in touch within one business day.`);
     form.reset();
   });
+
+  /* Brand-page pack viewers link here as index.html?enquiry=…#contact — drop
+     that text into the message box so the buyer doesn't have to retype which
+     pack they meant. */
+  const enquiry = new URLSearchParams(window.location.search).get('enquiry');
+  const messageField = form.querySelector('#message');
+  if (enquiry && messageField && !messageField.value) messageField.value = enquiry.slice(0, 500);
+}
+
+/* ===================== Mobile nav menu ===================== */
+/* Under 980px the links collapse behind .nav-toggle into a dropdown panel
+   (styles.css: header.nav.menu-open). The nav's Contact button is hidden at
+   that width, so it's cloned into the panel — the menu keeps a route to
+   Contact without editing the nav markup duplicated across all fourteen
+   pages. Closes on a link tap, Escape, a tap outside, or widening past the
+   breakpoint. Runs before the anchor-scroll block below so the cloned link
+   picks up the same fixed-nav offset as the others. */
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+if (navToggle && navLinks) {
+  const navCta = document.querySelector('.nav-cta .btn');
+  if (navCta) {
+    const menuCta = navCta.cloneNode(true);
+    menuCta.classList.add('nav-menu-cta');
+    navLinks.appendChild(menuCta);
+  }
+  if (!navLinks.id) navLinks.id = 'primaryNav';
+  const icon = navToggle.querySelector('path');
+  const bars = icon ? icon.getAttribute('d') : '';
+  function setMenu(open) {
+    nav.classList.toggle('menu-open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (icon) icon.setAttribute('d', open ? 'M6 6l12 12M18 6L6 18' : bars);
+  }
+  navToggle.setAttribute('aria-controls', navLinks.id);
+  setMenu(false);
+  navToggle.addEventListener('click', () => setMenu(!nav.classList.contains('menu-open')));
+  navLinks.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('menu-open') && !nav.contains(e.target)) setMenu(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('menu-open')) {
+      setMenu(false);
+      navToggle.focus();
+    }
+  });
+  window.matchMedia('(min-width:981px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
 }
 
 /* ===================== Smooth anchor scroll offset ===================== */
@@ -245,25 +536,3 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
-
-/* ===================== Mobile nav toggle (simple dropdown) ===================== */
-const navToggle = document.querySelector('.nav-toggle');
-const navLinks = document.querySelector('.nav-links');
-if (navToggle) {
-  navToggle.addEventListener('click', () => {
-    if (navLinks.style.display === 'flex') {
-      navLinks.style.display = '';
-    } else {
-      navLinks.style.display = 'flex';
-      navLinks.style.position = 'absolute';
-      navLinks.style.top = '60px';
-      navLinks.style.right = '20px';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.padding = '12px';
-      navLinks.style.background = '#fff';
-      navLinks.style.border = '1px solid var(--line)';
-      navLinks.style.borderRadius = '14px';
-      navLinks.style.boxShadow = 'var(--shadow-md)';
-    }
-  });
-}

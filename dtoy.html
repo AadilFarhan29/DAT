@@ -46,7 +46,7 @@
 </script>
 <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="theme-pegboard">
 
 <!-- ===================== Nav ===================== -->
 <!-- Duplicated verbatim from index.html (no fetch()-based include — this site
@@ -105,42 +105,1219 @@
   </div>
 </section>
 
-<!-- ===================== Range ===================== -->
-<!-- All three products are confirmed with photography; no spec copy was
-     supplied, so each card is name + image only (same pattern as Little
-     Trendz/The Play Zo/Hippo's confirmed products) — no range-desc
-     paragraph on any of them. -->
-<section class="bg-alt brand-range">
+<!-- ===================== The wall ===================== -->
+<!-- Every pack photo supplied for D'Toy, hung as a pegboard display
+     (.peg-range — replaces the three-card .brand-range section). The packs
+     carry no printed product names, so each caption is a plain description of
+     what's visibly in the bag, NOT an official product name, and "No. 001" is
+     this page's own running index, not a supplier item number. Correct a
+     caption by editing its .peg-name text; the viewer reads it from here.
+     Images: assets/dtoy-range/thumb/NNN.jpg (480×600, the wall) and
+     assets/dtoy-range/full/NNN.jpg (960×1200, the viewer) — trimmed, web-sized
+     exports of the originals in assets/DTOY/. Each <li>'s data-cat must match
+     a .peg-chip data-filter. Filters, row-based paging, the viewer and Lucky
+     dip live in script.js (guarded on #pegWall). -->
+<section class="peg-range" data-brand="D'Toy">
   <div class="container">
     <div class="section-head">
       <div class="head-left">
         <div class="reveal"><span class="eyebrow">The Range</span></div>
-        <h2 class="reveal" data-delay="1">A few from <em>the range</em>.</h2>
+        <h2 class="reveal" data-delay="1">Straight off <em>the peg</em>.</h2>
       </div>
+      <p class="head-right reveal" data-delay="2">Browse the packs by play type and tap any one for a closer look — or leave it to a lucky dip.</p>
     </div>
 
-    <div class="range-grid" data-stagger>
-      <article class="range-card r-lg stagger-item">
-        <div class="range-media has-photo">
-          <img src="assets/dtoy-shuttle-hobby-car.jpg" alt="Shuttle 08 Hobby" loading="lazy"/>
-        </div>
-        <h3 class="range-name">Shuttle 08 Hobby</h3>
-      </article>
-      <article class="range-card r-a stagger-item">
-        <div class="range-media has-photo">
-          <img src="assets/dtoy-shuttle-alloy-rc-car.jpg" alt="Shuttle 08 Alloy" loading="lazy"/>
-        </div>
-        <h3 class="range-name">Shuttle 08 Alloy</h3>
-      </article>
-      <article class="range-card r-b stagger-item">
-        <div class="range-media has-photo">
-          <img src="assets/dtoy-walkie-talkie.jpg" alt="Kids Walkie Talkie (2-Pack)" loading="lazy"/>
-        </div>
-        <h3 class="range-name">Kids Walkie Talkie (2-Pack)</h3>
-      </article>
+    <div class="peg-toolbar reveal" data-delay="2">
+      <div class="peg-filters" role="group" aria-label="Filter packs by play type">
+          <button class="peg-chip is-active" type="button" data-filter="all" aria-pressed="true"><span class="peg-chip-label">All packs</span><span class="peg-chip-n">188</span></button>
+          <button class="peg-chip" type="button" data-filter="wheels" aria-pressed="false"><span class="peg-chip-label">Wheels &amp; Wings</span><span class="peg-chip-n">35</span></button>
+          <button class="peg-chip" type="button" data-filter="music" aria-pressed="false"><span class="peg-chip-label">Whistles &amp; Music</span><span class="peg-chip-n">34</span></button>
+          <button class="peg-chip" type="button" data-filter="pretend" aria-pressed="false"><span class="peg-chip-label">Pretend Play</span><span class="peg-chip-n">33</span></button>
+          <button class="peg-chip" type="button" data-filter="fidget" aria-pressed="false"><span class="peg-chip-label">Fidget &amp; Fun</span><span class="peg-chip-n">30</span></button>
+          <button class="peg-chip" type="button" data-filter="active" aria-pressed="false"><span class="peg-chip-label">Active Play</span><span class="peg-chip-n">24</span></button>
+          <button class="peg-chip" type="button" data-filter="critters" aria-pressed="false"><span class="peg-chip-label">Critters &amp; Figures</span><span class="peg-chip-n">17</span></button>
+          <button class="peg-chip" type="button" data-filter="puzzles" aria-pressed="false"><span class="peg-chip-label">Puzzles &amp; Games</span><span class="peg-chip-n">15</span></button>
+      </div>
+      <button class="peg-dip" type="button" id="pegDip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        Lucky dip
+      </button>
+    </div>
+
+    <div class="peg-board">
+      <ul class="peg-wall" id="pegWall">
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/001.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">001</span><span class="peg-name">Dartboard set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/002.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">002</span><span class="peg-name">Graphic racing cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/003.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">003</span><span class="peg-name">Emoji pop-up cones</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/004.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">004</span><span class="peg-name">Fashion vanity set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/005.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">005</span><span class="peg-name">Mini xylophone</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/006.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">006</span><span class="peg-name">Safari animals</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/007.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">007</span><span class="peg-name">Foam rocket catchers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/008.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">008</span><span class="peg-name">Smiley maracas</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/009.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">009</span><span class="peg-name">Fries &amp; popcorn cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/010.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">010</span><span class="peg-name">Rainbow springs</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/011.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">011</span><span class="peg-name">Lobster buddies</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/012.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">012</span><span class="peg-name">Gold trophies</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/013.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">013</span><span class="peg-name">Tic-tac-toe</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/014.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">014</span><span class="peg-name">Container trucks</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/015.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">015</span><span class="peg-name">Emoji spinning tops</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/016.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">016</span><span class="peg-name">Bee whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/017.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">017</span><span class="peg-name">Crab buddies</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/018.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">018</span><span class="peg-name">Kitchen fridge set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/019.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">019</span><span class="peg-name">Water pistols</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/020.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">020</span><span class="peg-name">Burger toys</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/021.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">021</span><span class="peg-name">Fighter jets</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/022.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">022</span><span class="peg-name">Transforming eggs</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/023.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">023</span><span class="peg-name">Puzzle cubes</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/024.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">024</span><span class="peg-name">Cactus spring poppers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/025.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">025</span><span class="peg-name">Motorbike riders</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/026.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">026</span><span class="peg-name">Pumpkin whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/027.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">027</span><span class="peg-name">Toy battle axes</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/028.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">028</span><span class="peg-name">Flower spinning tops</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/029.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">029</span><span class="peg-name">Printed yo-yos</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/030.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">030</span><span class="peg-name">Sea creature figures</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/031.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">031</span><span class="peg-name">Math rollers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/032.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">032</span><span class="peg-name">Mini racers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/033.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">033</span><span class="peg-name">T-shirt whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/034.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">034</span><span class="peg-name">Mini torches</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/035.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">035</span><span class="peg-name">Funny-face springs</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/036.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">036</span><span class="peg-name">Disc shooter set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/037.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">037</span><span class="peg-name">Clear mini buses</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/038.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">038</span><span class="peg-name">Jersey whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/039.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">039</span><span class="peg-name">Kitchen utensil set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/040.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">040</span><span class="peg-name">Vehicle stampers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/041.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">041</span><span class="peg-name">Dino stunt cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/042.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">042</span><span class="peg-name">Crocodile whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/043.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">043</span><span class="peg-name">Mini paddle set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/044.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">044</span><span class="peg-name">Dinosaur figures</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/045.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">045</span><span class="peg-name">Mirrors &amp; combs</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/046.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">046</span><span class="peg-name">Dino water games</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/047.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">047</span><span class="peg-name">Gyro spinners</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/048.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">048</span><span class="peg-name">Suitcase cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/049.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">049</span><span class="peg-name">Squeaky hammers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/050.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">050</span><span class="peg-name">Nail-polish toys</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/051.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">051</span><span class="peg-name">Panda finger skateboards</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/052.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">052</span><span class="peg-name">Sports racing cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/053.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">053</span><span class="peg-name">Football charm whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/054.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">054</span><span class="peg-name">Wall climbers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/055.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">055</span><span class="peg-name">Kitchen play set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/056.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">056</span><span class="peg-name">Robot figures</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/057.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">057</span><span class="peg-name">Mini sports balls</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/058.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">058</span><span class="peg-name">Puzzle balls</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/059.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">059</span><span class="peg-name">Mini bicycles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/060.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">060</span><span class="peg-name">Football whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/061.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">061</span><span class="peg-name">Flower hair clips</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/062.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">062</span><span class="peg-name">Printed spinning tops</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/063.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">063</span><span class="peg-name">Mini block cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/064.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">064</span><span class="peg-name">Assorted whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/065.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">065</span><span class="peg-name">Butterfly clips</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/066.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">066</span><span class="peg-name">Finger skateboards</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/067.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">067</span><span class="peg-name">Mini fans &amp; whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/068.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">068</span><span class="peg-name">Animal finger puppets</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/069.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">069</span><span class="peg-name">Dino park cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/070.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">070</span><span class="peg-name">Pan flutes</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/071.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">071</span><span class="peg-name">Party glasses</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/072.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">072</span><span class="peg-name">Basketball shooter game</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/073.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">073</span><span class="peg-name">Cone catch game</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/074.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">074</span><span class="peg-name">Pop-tube robots</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/075.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">075</span><span class="peg-name">Jet planes</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/076.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">076</span><span class="peg-name">Clear whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/077.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">077</span><span class="peg-name">Treasure coins</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/078.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">078</span><span class="peg-name">Glider planes</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/079.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">079</span><span class="peg-name">Recorder flutes</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/080.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">080</span><span class="peg-name">Pop-tube puppies</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/081.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">081</span><span class="peg-name">Disc launchers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/082.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">082</span><span class="peg-name">Dino figure mix</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/083.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">083</span><span class="peg-name">Combs &amp; rings</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/084.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">084</span><span class="peg-name">Dino cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/085.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">085</span><span class="peg-name">Party trumpets</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/086.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">086</span><span class="peg-name">Table football games</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/087.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">087</span><span class="peg-name">Fan watches</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/088.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">088</span><span class="peg-name">Doll play set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/089.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">089</span><span class="peg-name">Water gun &amp; discs</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/090.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">090</span><span class="peg-name">Character cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/091.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">091</span><span class="peg-name">Emoji rattle drums</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/092.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">092</span><span class="peg-name">Home doll set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/093.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">093</span><span class="peg-name">Rice-ball buddies</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/094.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">094</span><span class="peg-name">Seahorse toys</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/095.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">095</span><span class="peg-name">Bounce-back balls</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/096.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">096</span><span class="peg-name">Air force jets</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/097.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">097</span><span class="peg-name">Pastel squeaky hammers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/098.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">098</span><span class="peg-name">Spinner swords</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/099.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">099</span><span class="peg-name">Vehicle maze games</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/100.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">100</span><span class="peg-name">Car stampers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/101.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">101</span><span class="peg-name">Mini tractors</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/102.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">102</span><span class="peg-name">Heart whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/103.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">103</span><span class="peg-name">Yo-yo &amp; clip mix</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/104.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">104</span><span class="peg-name">Trophy cups</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/105.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">105</span><span class="peg-name">Cartoon cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/106.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">106</span><span class="peg-name">Bumblebee toys</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/107.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">107</span><span class="peg-name">Gator whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/108.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">108</span><span class="peg-name">Mini stampers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/109.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">109</span><span class="peg-name">Party medals</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/110.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">110</span><span class="peg-name">Water guns &amp; fans</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/111.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">111</span><span class="peg-name">Handbag cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/112.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">112</span><span class="peg-name">Ball whistle &amp; horn</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/113.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">113</span><span class="peg-name">Party favor mix</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/114.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">114</span><span class="peg-name">Space maze games</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/115.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">115</span><span class="peg-name">Shopping baskets</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/116.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">116</span><span class="peg-name">Jet fighter squadron</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/117.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">117</span><span class="peg-name">Seashell whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/118.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">118</span><span class="peg-name">Skateboard mix</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/119.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">119</span><span class="peg-name">Ocean animal figures</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/120.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">120</span><span class="peg-name">Funny-face rainbow springs</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/121.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">121</span><span class="peg-name">Stove &amp; pan set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/122.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">122</span><span class="peg-name">Bicycle mix</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/123.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">123</span><span class="peg-name">Pink xylophone</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/124.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">124</span><span class="peg-name">Sports yo-yo mix</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/125.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">125</span><span class="peg-name">Spray bottles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/126.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">126</span><span class="peg-name">Bunny spring poppers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/127.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">127</span><span class="peg-name">Bike maze games</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/128.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">128</span><span class="peg-name">Little buses</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/129.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">129</span><span class="peg-name">Xylophone</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/130.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">130</span><span class="peg-name">Cooking set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/131.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">131</span><span class="peg-name">Jumping frogs</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/132.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">132</span><span class="peg-name">Cup catch games</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/133.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">133</span><span class="peg-name">Cactus poppers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/134.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">134</span><span class="peg-name">Jet models</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/135.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">135</span><span class="peg-name">Football rattles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/136.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">136</span><span class="peg-name">Glam accessory set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/137.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">137</span><span class="peg-name">Rockets &amp; jets</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/138.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">138</span><span class="peg-name">Hand clappers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/139.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">139</span><span class="peg-name">Ball keychains</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/140.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">140</span><span class="peg-name">Disc shooter &amp; maze</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/141.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">141</span><span class="peg-name">Maze paddles &amp; whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/142.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">142</span><span class="peg-name">Pink kitchen set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/143.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">143</span><span class="peg-name">Build-a-plane kits</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/144.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">144</span><span class="peg-name">Flower whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/145.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">145</span><span class="peg-name">Bee buddies</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/146.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">146</span><span class="peg-name">Pastel fan watches</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/147.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">147</span><span class="peg-name">Green kitchen set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/148.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">148</span><span class="peg-name">Blow-ball pipes</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/149.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">149</span><span class="peg-name">Chunky cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/150.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">150</span><span class="peg-name">Seashell rattles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/151.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">151</span><span class="peg-name">Character spinning tops</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/152.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">152</span><span class="peg-name">Lollipop toys</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/153.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">153</span><span class="peg-name">Dino flip cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/154.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">154</span><span class="peg-name">Banana clappers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/155.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">155</span><span class="peg-name">Football maze balls</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/156.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">156</span><span class="peg-name">Clear water guns</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/157.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">157</span><span class="peg-name">Dino clip toys</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/158.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">158</span><span class="peg-name">Glasses &amp; comb set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/159.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">159</span><span class="peg-name">Capsule eggs</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/160.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">160</span><span class="peg-name">Foam gliders</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/161.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">161</span><span class="peg-name">Whistle mix</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/162.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">162</span><span class="peg-name">Mini blasters</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/163.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">163</span><span class="peg-name">Mini kitchen set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/164.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">164</span><span class="peg-name">Plane model kits</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/165.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">165</span><span class="peg-name">Party horns</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/166.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">166</span><span class="peg-name">Sticky hands</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/167.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">167</span><span class="peg-name">Cute maze games</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/168.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">168</span><span class="peg-name">Watch &amp; glasses mix</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/169.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">169</span><span class="peg-name">Lizard figures</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/170.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">170</span><span class="peg-name">Football bouncy balls</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/171.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">171</span><span class="peg-name">Mini scooters</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/172.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">172</span><span class="peg-name">Funny-face whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/173.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">173</span><span class="peg-name">Googly-eye rings</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/174.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">174</span><span class="peg-name">Party sunglasses</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/175.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">175</span><span class="peg-name">Critter cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/176.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">176</span><span class="peg-name">Pinwheel whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/177.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">177</span><span class="peg-name">Water pistol set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/178.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">178</span><span class="peg-name">Pop-tube bears</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/179.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">179</span><span class="peg-name">Cartoon watches</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/180.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">180</span><span class="peg-name">Fast-food cars</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/181.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">181</span><span class="peg-name">Animal whistles</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="puzzles">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/182.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">182</span><span class="peg-name">Bead frame games</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="critters">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/183.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">183</span><span class="peg-name">Dino figures</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="active">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/184.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">184</span><span class="peg-name">Clear water pistols</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="fidget">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/185.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">185</span><span class="peg-name">Dome spinning tops</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="pretend">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/186.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">186</span><span class="peg-name">Comb set</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="wheels">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/187.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">187</span><span class="peg-name">Lightning racers</span></span>
+          </button>
+        </li>
+        <li class="peg-item" data-cat="music">
+          <button class="peg-card" type="button" aria-haspopup="dialog">
+            <span class="peg-media"><img src="assets/dtoy-range/thumb/188.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"></span>
+            <span class="peg-label"><span class="peg-no">188</span><span class="peg-name">Twin horns</span></span>
+          </button>
+        </li>
+      </ul>
+      <div class="peg-foot">
+        <p class="peg-count" id="pegCount" aria-live="polite"></p>
+        <button class="btn btn-ghost peg-more" type="button" id="pegMore">
+          Show more packs
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Pack viewer — one modal <dialog> shared by every pack on the wall. -->
+<dialog class="peg-viewer" id="pegViewer" aria-labelledby="pvName">
+  <div class="pv-grid">
+    <div class="pv-stage" id="pvStage">
+      <figure class="pv-hang">
+        <div class="pv-card"><img id="pvImg" width="960" height="1200" alt="" draggable="false"></div>
+      </figure>
+    </div>
+    <div class="pv-info">
+      <p class="pv-cat" id="pvCat"></p>
+      <p class="pv-no"><span class="pv-no-pre">No.</span> <span id="pvNo"></span></p>
+      <h3 class="pv-name" id="pvName"></h3>
+      <a class="btn btn-primary pv-enquire" id="pvEnquire" href="index.html#contact">
+        Enquire about this pack
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <div class="pv-nav">
+        <button class="pv-btn" id="pvPrev" type="button" aria-label="Previous pack">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <span class="pv-pos" id="pvPos"></span>
+        <button class="pv-btn" id="pvNext" type="button" aria-label="Next pack">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <p class="pv-hint">← → to browse · Esc to close</p>
+    </div>
+  </div>
+  <button class="pv-close" id="pvClose" type="button" aria-label="Close viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</dialog>
 
 <!-- ===================== Closing CTA ===================== -->
 <section class="brand-cta">
